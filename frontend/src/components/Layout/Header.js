@@ -19,6 +19,8 @@ import { backendUrl, baseUrl } from "../../constant";
 import { RxCross1 } from "react-icons/rx";
 const Header = ({ activeHeader }) => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
+  const { cart } = useSelector((state) => state.carts);
+  const { wishlist } = useSelector((state) => state.wishlists);
   const { allProducts } = useSelector((state) => state.products);
   const [searchItem, setSearchItem] = useState("");
   const [searchedData, setSearchedData] = useState(null);
@@ -147,7 +149,7 @@ const Header = ({ activeHeader }) => {
                   onClick={() => setWishlist(!openWishlist)}
                 />
                 <span className="absolute right-0 top-0 rounded-full bg-[#3bc177] w-4 h-4 top right p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
-                  0
+                  {wishlist && wishlist.length}
                 </span>
               </div>
             </div>
@@ -159,7 +161,7 @@ const Header = ({ activeHeader }) => {
                   onClick={() => setOpenCart(!openCart)}
                 />
                 <span className="absolute right-0 top-0 rounded-full bg-[#3bc177] w-4 h-4 top right p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
-                  0
+                  {cart && cart.length}
                 </span>
               </div>
             </div>
@@ -218,7 +220,7 @@ const Header = ({ activeHeader }) => {
             >
               <AiOutlineShoppingCart size={30} />
               <span class="absolute right-0 top-0 rounded-full bg-[#3bc177] w-4 h-4 top right p-0 m-0 text-white font-mono text-[12px]  leading-tight text-center">
-                {/* {cart && cart.length} */}1
+                {cart && cart.length}1
               </span>
             </div>
           </div>

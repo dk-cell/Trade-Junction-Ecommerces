@@ -6,6 +6,7 @@ import {
 } from "react-icons/ai";
 import { HiOutlineReceiptRefund, HiOutlineShoppingBag } from "react-icons/hi";
 import { RxPerson } from "react-icons/rx";
+import { RiLockPasswordLine } from "react-icons/ri";
 import { TbAddressBook } from "react-icons/tb";
 import { MdOutlineTrackChanges } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
@@ -34,7 +35,9 @@ const ProfileSidebar = ({ active, setActive }) => {
         onClick={() => setActive(1)}
       >
         <RxPerson size={20} color={active === 1 ? "red" : ""} />
-        <span className={`${active === 1 ? "text-[red]" : ""} pl-3 md:block hidden`}>
+        <span
+          className={`${active === 1 ? "text-[red]" : ""} pl-3 md:block hidden`}
+        >
           Profile
         </span>
       </div>
@@ -44,7 +47,9 @@ const ProfileSidebar = ({ active, setActive }) => {
         onClick={() => setActive(2)}
       >
         <HiOutlineShoppingBag size={20} color={active === 2 ? "red" : ""} />
-        <span className={`${active === 2 ? "text-[red]" : ""} pl-3 md:block hidden`}>
+        <span
+          className={`${active === 2 ? "text-[red]" : ""} pl-3 md:block hidden`}
+        >
           Orders
         </span>
       </div>
@@ -54,7 +59,9 @@ const ProfileSidebar = ({ active, setActive }) => {
         onClick={() => setActive(3)}
       >
         <HiOutlineReceiptRefund size={20} color={active === 3 ? "red" : ""} />
-        <span className={`${active === 3 ? "text-[red]" : ""} pl-3 md:block hidden`}>
+        <span
+          className={`${active === 3 ? "text-[red]" : ""} pl-3 md:block hidden`}
+        >
           Refunds
         </span>
       </div>
@@ -67,7 +74,9 @@ const ProfileSidebar = ({ active, setActive }) => {
         }}
       >
         <AiOutlineMessage size={20} color={active === 4 ? "red" : ""} />
-        <span className={`${active === 4 ? "text-[red]" : ""} pl-3 md:block hidden`}>
+        <span
+          className={`${active === 4 ? "text-[red]" : ""} pl-3 md:block hidden`}
+        >
           Inbox
         </span>
       </div>
@@ -77,7 +86,9 @@ const ProfileSidebar = ({ active, setActive }) => {
         onClick={() => setActive(5)}
       >
         <MdOutlineTrackChanges size={20} color={active === 5 ? "red" : ""} />
-        <span className={`${active === 5 ? "text-[red]" : ""} pl-3 md:block hidden`}>
+        <span
+          className={`${active === 5 ? "text-[red]" : ""} pl-3 md:block hidden`}
+        >
           Track Orders
         </span>
       </div>
@@ -86,9 +97,11 @@ const ProfileSidebar = ({ active, setActive }) => {
         className="flex item-center cursor-pointer w-full mb-8"
         onClick={() => setActive(6)}
       >
-        <AiOutlineCreditCard size={20} color={active === 6 ? "red" : ""} />
-        <span className={`${active === 6 ? "text-[red]" : ""} pl-3 md:block hidden`}>
-          Payment Methods
+        <RiLockPasswordLine size={20} color={active === 6 ? "red" : ""} />
+        <span
+          className={`${active === 6 ? "text-[red]" : ""} pl-3 md:block hidden`}
+        >
+          Update Password
         </span>
       </div>
 
@@ -97,7 +110,9 @@ const ProfileSidebar = ({ active, setActive }) => {
         onClick={() => setActive(7)}
       >
         <TbAddressBook size={20} color={active === 7 ? "red" : ""} />
-        <span className={`${active === 7 ? "text-[red]" : ""} pl-3 md:block hidden`}>
+        <span
+          className={`${active === 7 ? "text-[red]" : ""} pl-3 md:block hidden`}
+        >
           Address
         </span>
       </div>
@@ -110,7 +125,9 @@ const ProfileSidebar = ({ active, setActive }) => {
         }}
       >
         <AiOutlineLogout size={20} color={active === 8 ? "red" : ""} />
-        <span className={`${active === 8 ? "text-[red]" : ""} pl-3 md:block hidden`}>
+        <span
+          className={`${active === 8 ? "text-[red]" : ""} pl-3 md:block hidden`}
+        >
           Logout
         </span>
       </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../../../style/styles";
 import {
@@ -11,12 +11,58 @@ import {
 } from "react-icons/ai";
 import ProductDetailsCard from "../ProductDetailsCard/ProductDetailsCard";
 import { backendUrl } from "../../../constant";
+import { addTocart } from "../../../redux/actions/cart";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import {
+  addToWishlist,
+  removeFromWishlist,
+} from "../../../redux/actions/wishlist";
 
 const ProductCard = ({ data }) => {
+  const { cart } = useSelector((state) => state.carts);
+  const { wishlist } = useSelector((state) => state.wishlists);
+  const dispatch = useDispatch();
   console.log(data);
   const [click, setClick] = useState(false);
   const [open, setOpen] = useState(false);
   const name = data.name;
+
+  useEffect(()=>{
+    const isItemExist = wishlist && wishlist.find((i) => i._id == data._id);
+    if(isItemExist){
+      setClick(true)
+    }else{
+      setClick(false)
+    }
+  },[click])
+
+  const handleAddToCart = (id) => {
+    const isItemExist = cart && cart.find((i) => i._id == id);
+    if (isItemExist) {
+      toast.error("Item is already in Cart!");
+    } else {
+      if (data.stock >= 1) {
+        dispatch(addTocart(data));
+        toast.success("Item added successfully!");
+      } else {
+        toast.error("stocks not available!");
+      }
+    }
+  };
+
+  const handleWishlist = (id) => {
+    if (!click) {
+      console.log(data);
+      dispatch(addToWishlist(data));
+      toast.success("Item added to wishlist successfully!");
+    } else {
+      dispatch(removeFromWishlist(data));
+      toast.success("Item removed from wishlist successfully!");
+      // setClick(!click);
+    }
+    setClick(!click);
+  };
   // const productName = name.replace(/\s+/g, "-");
   return (
     <div className="w-full h-[370px] bg-white rounded-lg shadow-sm p-3 relative cursor-pointer ">
@@ -82,7 +128,7 @@ const ProductCard = ({ data }) => {
           <AiFillHeart
             size={22}
             className="cursor-pointer absolute right-2 top-5"
-            onClick={() => setClick(!click)}
+            onClick={() => handleWishlist(data)}
             color={click ? "red" : "#333"}
             title="Remove form wishlist"
           />
@@ -90,7 +136,7 @@ const ProductCard = ({ data }) => {
           <AiOutlineHeart
             size={22}
             className="cursor-pointer absolute right-2 top-5"
-            onClick={() => setClick(!click)}
+            onClick={() => handleWishlist(data)}
             color={click ? "red" : "#333"}
             title="Add to wishlist"
           />
@@ -106,7 +152,7 @@ const ProductCard = ({ data }) => {
         <AiOutlineShoppingCart
           size={25}
           className="cursor-pointer absolute right-2 top-24"
-          onClick={() => setOpen(!open)}
+          onClick={() => handleAddToCart(data._id)}
           color="#444"
           title="add to cart"
         />
