@@ -29,7 +29,7 @@ const Signup = () => {
     newForm.append("email", email);
     newForm.append("password", password);
 
-    console.log(newForm);
+    // console.log(newForm);
 
     axios
       .post(`${baseUrl}/user/create-user`, newForm)

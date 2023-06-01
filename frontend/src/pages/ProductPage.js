@@ -7,18 +7,19 @@ import Header from "../components/Layout/Header";
 import { useSelector } from "react-redux";
 
 const ProductPage = () => {
-  const {allProducts} = useSelector((state)=>state.products)
+  const { allProducts } = useSelector((state) => state.products);
   const [seachParams] = useSearchParams();
   const categoryData = seachParams.get("category");
   const [data, setData] = useState([]);
 
   useEffect(() => {
     if (categoryData === null) {
-      const d = allProducts && allProducts.sort((a, b) => a.sold_out - b.sold_out);
+      const d = allProducts;
       setData(d);
     } else {
       const d =
-      allProducts && allProducts.filter((item) => item.category === categoryData);
+        allProducts &&
+        allProducts.filter((item) => item.category === categoryData);
       setData(d);
     }
     window.scrollTo(0, 0);

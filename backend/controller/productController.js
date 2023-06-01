@@ -48,8 +48,6 @@ router.get(
   catchAsyncErrors(async (req, res, next) => {
     try {
       const products = await Product.find({ shopId: req.params.id });
-
-      console.log("hi ", products)
       res.status(201).json({
         success: true,
         products,

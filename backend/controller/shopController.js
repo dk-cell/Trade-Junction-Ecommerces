@@ -14,8 +14,6 @@ const router = express.Router();
 
 router.post("/create-shop", upload.single("file"), async (req, res, next) => {
   const { email } = req.body;
-
-  console.log(email);
   const EmailId = await Shop.findOne({ email });
   if (EmailId) {
     const filename = req.file.filename;

@@ -27,30 +27,59 @@ import ShopCreatePage from "./pages/shop/ShopCreatePage";
 import SellerDashboardPage from "./pages/shop/SellerDashboardPage";
 import ShopCreateProduct from "./pages/shop/ShopCreateProduct";
 import GetAllShopProduct from "./pages/shop/GetAllShopProduct";
+import AllOrderOfShop from "./pages/shop/AllOrderOfShop"
 import ShopCreateEvents from "./pages/shop/ShopCreateEvents";
 import ShopAllEvents from "./pages/shop/ShopAllEvents";
-import ShopAllCoupons from "./pages/shop/ShopAllCoupons.js";
-import ShopPreviewPage from "./pages/shop/ShopPreviewPage.js";
+import ShopAllCoupons from "./pages/shop/ShopAllCoupons";
+import ShopPreviewPage from "./pages/shop/ShopPreviewPage";
+import ShopOrderDetails from "./pages/shop/ShopOrderDetails.js"
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Store from "./redux/store";
 import { getSellerDetails, getUserDetails } from "./redux/actions/user";
 import ProtectedRoute from "./protected_route/ProtectedRoute";
 import SellerProtectedRoute from "./protected_route/SellerProtectedRoute";
 import { getAllProducts } from "./redux/actions/product";
 import { getAllEvents } from "./redux/actions/event";
+import axios from "axios";
+import { baseUrl } from "./constant";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import OrderSuccessPage from "./pages/OrderSuccessPage";
 
 const App = () => {
+  const [stripeApikey, setStripeApiKey] = useState("");
+
+  async function getStripeApikey() {
+    const { data } = await axios.get(`${baseUrl}/payment/stripeapikey`);
+    setStripeApiKey(data.stripeApikey);
+  }
+
   useEffect(() => {
     Store.dispatch(getUserDetails());
-    Store.dispatch(getAllProducts())
+    Store.dispatch(getAllProducts());
     Store.dispatch(getSellerDetails());
     Store.dispatch(getAllEvents());
+    getStripeApikey();
   }, []);
   return (
     <BrowserRouter>
+      {stripeApikey && (
+        <Elements stripe={loadStripe(stripeApikey)}>
+          <Routes>
+            <Route
+              path="/payment"
+              element={
+                <ProtectedRoute>
+                  <PaymentPage />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </Elements>
+      )}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -76,7 +105,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="/payment" element={<PaymentPage />} />
+        <Route path="/order/success" element={<OrderSuccessPage />} />
         <Route
           path="/profile"
           element={
@@ -121,6 +150,23 @@ const App = () => {
             </SellerProtectedRoute>
           }
         />
+        <Route
+          path="/dashboard-orders"
+          element={
+            <SellerProtectedRoute>
+              <AllOrderOfShop />
+            </SellerProtectedRoute>
+          }
+        />
+
+<Route
+          path="/order/:id"
+          element={
+            <SellerProtectedRoute>
+              <ShopOrderDetails />
+            </SellerProtectedRoute>
+          }
+        />
 
         <Route
           path="/dashboard-create-event"
@@ -140,7 +186,7 @@ const App = () => {
           }
         />
 
-<Route
+        <Route
           path="/dashboard-coupons"
           element={
             <SellerProtectedRoute>

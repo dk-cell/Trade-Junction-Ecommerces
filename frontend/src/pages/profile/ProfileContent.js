@@ -22,6 +22,7 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 import { TbRuler2 } from "react-icons/tb";
 import { RxCross1 } from "react-icons/rx";
+import { getAllOrdersOfUser } from "../../redux/actions/order";
 const ProfileContent = ({ active }) => {
   const cookies = new Cookies();
   const { user, error, successMessage } = useSelector((state) => state.user);
@@ -191,19 +192,26 @@ const ProfileContent = ({ active }) => {
 };
 
 const RenderAllOrder = () => {
+  const {orders} = useSelector((state)=>state.orders)
+  const {user} = useSelector((state)=>state.user)
+  const dispatch = useDispatch()
   const params = useParams();
-  const orders = [
-    {
-      _id: "jaksdkfashkfjsh",
-      orderItems: [
-        {
-          name: "Iphone 14 pro max",
-        },
-      ],
-      totalPrice: 120,
-      orderStatus: "processing",
-    },
-  ];
+
+  useEffect(()=>{
+    dispatch(getAllOrdersOfUser(user._id))
+  },[])
+  // const orders = [
+  //   {
+  //     _id: "jaksdkfashkfjsh",
+  //     orderItems: [
+  //       {
+  //         name: "Iphone 14 pro max",
+  //       },
+  //     ],
+  //     totalPrice: 120,
+  //     orderStatus: "processing",
+  //   },
+  // ];
   const columns = [
     { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
 
@@ -261,9 +269,9 @@ const RenderAllOrder = () => {
     orders.forEach((item) => {
       row.push({
         id: item._id,
-        itemsQty: item?.orderItems?.length,
+        itemsQty: item?.cart?.length,
         total: "US$ " + item.totalPrice,
-        status: item.orderStatus,
+        status: item.status,
       });
     });
 

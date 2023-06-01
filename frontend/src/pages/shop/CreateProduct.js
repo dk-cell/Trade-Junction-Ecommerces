@@ -38,7 +38,7 @@ const CreateProduct = () => {
     setImages((prevImages) => [...prevImages, ...files]);
   };
 
-  console.log(images);
+  // console.log(images);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -60,7 +60,7 @@ const CreateProduct = () => {
   };
 
   return (
-    <div className="w-[90%] md:w-[50%] bg-white  shadow h-[80vh] rounded-[4px] p-3 overflow-y-scroll">
+    <div className="w-[90%] md:w-[90%] bg-white  shadow h-[80vh] rounded-[4px] p-3 overflow-y-scroll">
       <h5 className="text-[30px] font-Poppins text-center">Create Product</h5>
       {/* create product form */}
       <form onSubmit={handleSubmit}>

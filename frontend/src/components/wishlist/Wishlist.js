@@ -24,8 +24,8 @@ const Wishlist = ({ setWishlist }) => {
     dispatch(removeFromWishlist(data));
   };
   return (
-    <div className="fixed top-0 left-0 w-full bg-[#0000004b] h-screen z-10 ">
-      <div className="fixed top-0 right-0 min-h-full w-[25%] bg-white flex flex-col justif-between shadow-sm">
+    <div className="fixed top-0 left-0 w-full bg-[#0000004b] h-screen z-10">
+      <div className="absolute top-0 right-0 min-h-full w-[35%] md:w-[25%] bg-white flex flex-col  justif-between shadow-sm overflow-y-scroll">
         <div className="flex w-full justify-end pt-5 pr-5">
           <RxCross1
             size={25}
@@ -100,7 +100,6 @@ const RenderWishlist = ({ data, handleRemove, handleAddToCart }) => {
             title="Add to cart"
             onClick={() => {
               handleAddToCart(data);
-              
             }}
           />
         </div>

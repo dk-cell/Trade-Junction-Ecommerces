@@ -1,21 +1,22 @@
 import React from "react";
+import AllOrders from "../../components/shop/AllOrders.js";
 import SellerDashboardHeader from "../../components/shop/Layout/SellerDashboardHeader";
 import ShopSidebar from "../../components/shop/Layout/ShopSidebar";
-import AllEvents from "../../components/shop/AllEvents";
-const SellerDashboardPage = () => {
+
+const AllOrderOfShop = () => {
   return (
     <div>
       <SellerDashboardHeader />
-      <div className="flex items-start justify-between w-full">
+      <div className="flex justify-between w-full">
         <div className="w-[80px] md:w-[330px]">
-          <ShopSidebar active={1} />
+          <ShopSidebar active={2} />
         </div>
         <div className="w-full justify-center flex">
-          <AllEvents />
+          <AllOrders />
         </div>
       </div>
     </div>
   );
 };
 
-export default SellerDashboardPage;
+export default AllOrderOfShop;

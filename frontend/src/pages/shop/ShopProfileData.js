@@ -15,7 +15,7 @@ const ShopProfileData = ({ isOwner }) => {
   const { id } = useParams();
   const events = [];
   const dispatch = useDispatch();
-console.log("heter i", products)
+// console.log("heter i", products)
     useEffect(() => {
       dispatch(getAllProductsOfShop(id));
       // dispatch(getAllEventsShop(id));
